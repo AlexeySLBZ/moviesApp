@@ -1,4 +1,4 @@
-export default class MoviesService {
+class MovService {
   apiKey = '3948d9a57f99991d20df72892016a965';
 
   url = 'https://api.themoviedb.org/3';
@@ -75,3 +75,5 @@ export default class MoviesService {
     );
   };
 }
+const MoviesService = new MovService()
+export default MoviesService

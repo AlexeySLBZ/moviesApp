@@ -77,7 +77,7 @@ export default class MoviePageSearch extends React.Component {
           errorMessage={errorMessage}
           rateMovie={rateMovie}
         />
-        <PageController total={totalPages} onChange={onChangePage} current={page} />
+        <PageController total={totalPages} onChange={onChangePage} current={page} error={error} />
       </div>
     );
   }

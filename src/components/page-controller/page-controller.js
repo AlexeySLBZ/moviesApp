@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import './page-controller.css';
 import { Pagination } from 'antd';
 
-export default function PageController({ total, onChange, current }) {
-  if (total === 0) {
+
+export default function PageController({ total, onChange, current, error }) {
+  if (total === 0 || error === true ) {
     return null;
   }
 
@@ -22,6 +23,7 @@ export default function PageController({ total, onChange, current }) {
 }
 
 PageController.propTypes = {
+  error: PropTypes.string.isRequired,
   total: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   current: PropTypes.number.isRequired,

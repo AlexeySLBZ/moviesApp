@@ -3,13 +3,12 @@ import './app.css';
 import 'antd/dist/antd.css';
 import { Spin } from 'antd';
 import MoviePage from '../movie-page';
-import MoviesService from '../../services/movies-service';
-import MoviesServiceContext from '../movies-service-context';
+import MoviesService from "../../services/movies-service";
 import { GenreListProvider } from '../genre-list-context';
 import ErrorAlert from '../error-alert';
 
 export default class App extends React.Component {
-  moviesService = new MoviesService();
+
 
   state = {
     loading: true,
@@ -21,9 +20,9 @@ export default class App extends React.Component {
 
   componentDidMount() {
     Promise.all([
-      this.moviesService.createGuestSession().then((id) => this.setState({ guestSessionId: id })),
+      MoviesService.createGuestSession().then((id) => this.setState({ guestSessionId: id })),
 
-      this.moviesService.getGenreList().then(({ genres }) => {
+      MoviesService.getGenreList().then(({ genres }) => {
         const genreList = genres.reduce((acc, { id, name }) => acc.set(id, name), new Map());
 
         this.setState({ genreList });
@@ -51,12 +50,10 @@ export default class App extends React.Component {
       );
     }
 
-    return (
+    return  (
       <div className="main-wrapper">
         <GenreListProvider value={genreList}>
-          <MoviesServiceContext.Provider value={this.moviesService}>
             <MoviePage guestSessionId={guestSessionId} />
-          </MoviesServiceContext.Provider>
         </GenreListProvider>
       </div>
     );

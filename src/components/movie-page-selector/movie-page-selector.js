@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './movie-page-selector.css';
 import MoviePageSearch from '../movie-page-search';
 import MoviePageRated from '../movie-page-rated';
-import MoviesServiceContext from '../movies-service-context';
+import MoviesService from "../../services/movies-service";
 
 export default function MoviePageSelector({ switchKeys, guestSessionId }) {
-  const { getMovies, rateMovie, getRatedMovies } = useContext(MoviesServiceContext);
 
   const getHideClassByName = (name) => {
     const isVisible = switchKeys.some((el) => el === name);
@@ -18,13 +17,13 @@ export default function MoviePageSelector({ switchKeys, guestSessionId }) {
     <>
       <MoviePageSearch
         className={getHideClassByName('search')}
-        getMovies={getMovies}
-        rateMovie={(id, vote) => rateMovie(guestSessionId, id, vote)}
+        getMovies={MoviesService.getMovies}
+        rateMovie={(id, vote) => MoviesService.rateMovie(guestSessionId, id, vote)}
       />
       <MoviePageRated
         className={getHideClassByName('rated')}
-        rateMovie={(id, vote) => rateMovie(guestSessionId, id, vote)}
-        getRatedMovies={() => getRatedMovies(guestSessionId)}
+        rateMovie={(id, vote) => MoviesService.rateMovie(guestSessionId, id, vote)}
+        getRatedMovies={() => MoviesService.getRatedMovies(guestSessionId)}
       />
     </>
   );
